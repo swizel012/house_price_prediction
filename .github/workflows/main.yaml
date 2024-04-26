@@ -1,0 +1,20 @@
+name: Deploy ML Application
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build Docker image
+      run: docker build -t ml-app .
+
+    - name: Run Docker container
+      run: docker run -d --name ml-container -p 5000:5000 ml-app
